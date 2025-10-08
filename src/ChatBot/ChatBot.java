@@ -24,6 +24,23 @@ public class ChatBot{
             System.out.println(number + 1 + "!");
             number++;
         }
+        System.out.println("Choose correct answer!");
+        System.out.println("Wrong answer" + "\n" + "Wrong answer" + "\n" + "Correct answer" + "\n" + "Wrong answer");
+        int right_answer_number = 3;
+        int user_answer = 0;
+        while (user_answer != right_answer_number) {
+            if (scanner.hasNext()) {
+                user_answer = scanner.nextInt();
+            } else {
+                scanner.next();
+                user_answer = 0;
+            }
+            if (user_answer != right_answer_number) {
+                System.out.println("Wrong");
+            }
+        }
+        System.out.println("Correct");
+        System.out.println("Goodbye, have a nice day!");
         scanner.close();
     }
 }
