@@ -35,11 +35,20 @@ public class Hangman {
 
             String input = scanner.nextLine();
 
+            if (input.length() != 1) {
+                System.out.println("You should input a single letter");
+                continue;
+            }
+
             char guessedLetter = input.charAt(0);
 
+            if (!Character.isLowerCase(guessedLetter) || !Character.isLetter(guessedLetter)) {
+                System.out.println("Please enter a lowercase English letter");
+                continue;
+            }
+
             if (guessedLetters.contains(guessedLetter)) {
-                System.out.println("No improvements!");
-                attempts++;
+                System.out.println("You've already guessed this letter.");;
                 continue;
             }
 
