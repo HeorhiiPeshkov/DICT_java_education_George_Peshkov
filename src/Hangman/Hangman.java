@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.List;
 import java.util.Random;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Hangman {
     public static void main(String[] args) {
@@ -26,23 +28,38 @@ public class Hangman {
             hiddenWord[i] = '-';
         }
 
+        Set<Character> guessedLetters = new HashSet<>();
+
         while (attempts < maxAttempts) {
             System.out.println("HANGMAN" + "\n" + String.valueOf(hiddenWord));
+
             String input = scanner.nextLine();
+
             char guessedLetter = input.charAt(0);
+
+            if (guessedLetters.contains(guessedLetter)) {
+                System.out.println("No improvements!");
+                attempts++;
+                continue;
+            }
+
+            guessedLetters.add(guessedLetter);
             boolean found = false;
+
             for (int i = 0; i < hiddenWord.length; i++) {
                 if (rightWord.charAt(i) == guessedLetter && hiddenWord[i] == '-') {
                     hiddenWord[i] = guessedLetter;
                     found = true;
             }
         }
+
         if (found) {
             System.out.println("Right!");
         } else {
-            System.out.println("Wrong!");
+            System.out.println("That letter doesn't appear in the word");
             attempts++;
         }
+
         if (String.valueOf(hiddenWord).equals(rightWord)) {
             System.out.println("You win!");
             break;
