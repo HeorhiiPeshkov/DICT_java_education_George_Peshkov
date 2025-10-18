@@ -1,138 +1,144 @@
 package CoffeMachine;
 
-import java.util.*;
+import java.util.Scanner;
 
 public class CoffeMachine {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int water = 400;
-        int milk = 540;
-        int beans = 120;
-        int disposable_cups = 9;
-        int money = 550;
+    enum CoffeState {
+        WAITING_FOR_COMMAND,
+        WAITING_FOR_CHOOSING_COFFEE_TYPE,
+        ADDING_WATER,
+        ADDING_MILK,
+        ADDING_BEANS,
+        ADDING_CUPS
+    }
+    private int water = 400;
+    private int milk = 540;
+    private int beans = 120;
+    private int cups = 9;
+    private int money = 550;
+    private void printState() {
         System.out.println("The coffee machine has:");
-        System.out.println(water + " of water");
-        System.out.println(milk + " of milk");
-        System.out.println(beans + " of coffee beans");
-        System.out.println(disposable_cups + " of disposable cups");
+        System.out.println(water + " ml of water");
+        System.out.println(milk + " ml of milk");
+        System.out.println(beans + " of beans");
+        System.out.println(cups + " of coffee cups");
         System.out.println(money + " of money");
-//        class Cappuccino {
-//            int cappuccino_water = 200;
-//            int cappuccino_milk = 100;
-//            int cappuccino_beans = 20;
-//            int cappuccino_disposable_cups = 1;
-//            int cappuccino_money = 6;
-//        }
-//        class Latte {
-//            int latte_water = 350;
-//            int latte_milk = 75;
-//            int latte_beans = 20;
-//            int latte_disposable_cups = 1;
-//            int latte_money = 7;
-//        }
-//        class Espresso {
-//            int espresso_water = 250;
-//            int espresso_milk = 0;
-//            int espresso_beans = 16;
-//            int espresso_disposable_cups = 1;
-//            int espresso_money = 4;
-//        }
-        while (true) {
-            System.out.println("Write action (buy, fill, take, remaining, exit):");
-            String input = scanner.nextLine();
-            if (input.equals("exit")) {
+    }
+    private void promtAction() {
+        System.out.println("Write action (buy, fill, take, remaining, exit):");
+        coffeState = CoffeState.WAITING_FOR_COMMAND;
+    }
+    private CoffeState coffeState = CoffeState.WAITING_FOR_COMMAND;
+    public void process(String input) {
+        switch (coffeState) {
+            case WAITING_FOR_COMMAND:
+                handleCommand(input);
                 break;
-            }
-            switch (input) {
-                case "buy":
-                    System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:");
-                    System.out.print("> ");
-                    String choice = scanner.nextLine();
-                    int water_need = 0;
-                    int milk_need = 0;
-                    int beans_need = 0;
-                    int cups_need = 0;
-                    int money_need = 0;
-                    switch (choice.toLowerCase()) {
-                        case "1":
-                            water_need = 250;
-                            milk_need = 0;
-                            beans_need = 16;
-                            cups_need = 1;
-                            money_need = 4;
-                            break;
-                        case "2":
-                            water_need = 350;
-                            milk_need = 75;
-                            beans_need = 20;
-                            cups_need = 1;
-                            money_need = 7;
-                            break;
-                        case "3":
-                            water_need = 200;
-                            milk_need = 100;
-                            beans_need = 20;
-                            cups_need = 1;
-                            money_need = 6;
-                            break;
-                    }
-                    if (water >= water_need && milk >= milk_need && beans >= beans_need && disposable_cups >= cups_need && money >= money_need) {
-                        water -= water_need;
-                        milk -= milk_need;
-                        beans -= beans_need;
-                        disposable_cups -= cups_need;
-                        money += money_need;
-                        System.out.println("The coffee machine has:");
-                        System.out.println(water + " of water");
-                        System.out.println(milk + " of milk");
-                        System.out.println(beans + " of coffee beans");
-                        System.out.println(disposable_cups + " of disposable cups");
-                        System.out.println(money + " of money");
-                    }
-                    break;
-                case "fill":
-                    System.out.println("Write how many ml of water you want to add:");
-                    System.out.print("> ");
-                    int add_water = scanner.nextInt();
-                    water += add_water;
-                    System.out.println("Write how many ml of milk you want to add:");
-                    System.out.print("> ");
-                    int add_milk = scanner.nextInt();
-                    milk += add_milk;
-                    System.out.println("Write how many grams of coffee beans you want to add:");
-                    System.out.print("> ");
-                    int add_beans = scanner.nextInt();
-                    beans += add_beans;
-                    System.out.println("Write how many disposable coffee cups you want to add:");
-                    System.out.print("> ");
-                    int add_cups = scanner.nextInt();
-                    disposable_cups += add_cups;
-                    System.out.println("The coffee machine has:");
-                    System.out.println(water + " of water");
-                    System.out.println(milk + " of milk");
-                    System.out.println(beans + " of coffee beans");
-                    System.out.println(disposable_cups + " of disposable cups");
-                    System.out.println(money + " of money");
-                    break;
-                case "take":
-                    System.out.println("I gave you " + money);
-                    money -= money;
-                    System.out.println("The coffee machine has:");
-                    System.out.println(water + " of water");
-                    System.out.println(milk + " of milk");
-                    System.out.println(beans + " of coffee beans");
-                    System.out.println(disposable_cups + " of disposable cups");
-                    System.out.println(money + " of money");
-                    break;
-                case "remaining":
-                    System.out.println("The coffee machine has:");
-                    System.out.println(water + " of water");
-                    System.out.println(milk + " of milk");
-                    System.out.println(beans + " of coffee beans");
-                    System.out.println(disposable_cups + " of disposable cups");
-                    System.out.println(money + " of money");
-            }
+            case WAITING_FOR_CHOOSING_COFFEE_TYPE:
+                chooseCooffeeType(input);
+                break;
+            case ADDING_WATER:
+                add_Water(input);
+                break;
+            case ADDING_MILK:
+                add_Milk(input);
+                break;
+            case ADDING_BEANS:
+                add_Beans(input);
+                break;
+            case ADDING_CUPS:
+                add_Cups(input);
+                break;
         }
-        scanner.close();
+    }
+    private void handleCommand(String input) {
+        switch (input) {
+            case "buy":
+                System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:");
+                coffeState = CoffeState.WAITING_FOR_CHOOSING_COFFEE_TYPE;
+                break;
+            case "fill":
+                System.out.println("Write how many ml of water you want to add:");
+                coffeState = CoffeState.ADDING_WATER;
+                break;
+            case "take":
+                System.out.println("I gave you " + money);
+                money = 0;
+                break;
+            case "remaining":
+                printState();
+                promtAction();
+                break;
+            case "exit":
+                System.exit(0);
+                break;
+        }
+    }
+    private void chooseCooffeeType(String input) {
+        int waterNeed = 0;
+        int milkNeed = 0;
+        int beansNeed = 0;
+        int cupsNeed = 0;
+        int moneyNeed = 0;
+        switch (input) {
+            case "1":
+                waterNeed = 250;
+                milkNeed = 0;
+                beansNeed = 16;
+                cupsNeed = 1;
+                moneyNeed = 5;
+                break;
+            case "2":
+                waterNeed = 350;
+                milkNeed = 75;
+                beansNeed = 20;
+                cupsNeed = 1;
+                moneyNeed = 7;
+                break;
+            case "3":
+                waterNeed = 200;
+                milkNeed = 100;
+                beansNeed = 12;
+                cupsNeed = 1;
+                moneyNeed = 6;
+                break;
+        }
+        if (water > waterNeed && milk > milkNeed && beans > beansNeed && cups > cupsNeed) {
+            water -= waterNeed;
+            milk -= milkNeed;
+            beans -= beansNeed;
+            cups--;
+            money += moneyNeed;
+            promtAction();
+        }
+    }
+    private void add_Water(String input) {
+        water += Integer.parseInt(input);
+        System.out.println("Write how many ml of water do you want to add:");
+        coffeState = CoffeState.ADDING_MILK;
+    }
+    private void add_Milk(String input) {
+        milk += Integer.parseInt(input);
+        System.out.println("Write how many ml of milk do you want to add:");
+        coffeState = CoffeState.ADDING_BEANS;
+    }
+    private void add_Beans(String input) {
+        beans += Integer.parseInt(input);
+        System.out.println("Write how many beans do you want to add:");
+        coffeState = CoffeState.ADDING_CUPS;
+    }
+    private void add_Cups(String input) {
+        cups += Integer.parseInt(input);
+        promtAction();
+    }
+    public static void main(String[] args) {
+        CoffeMachine coffeMachine = new CoffeMachine();
+        Scanner scanner = new Scanner(System.in);
+        coffeMachine.promtAction();
+
+        while (scanner.hasNext()) {
+            String input = scanner.next();
+            coffeMachine.process(input);
+        }
     }
 }
