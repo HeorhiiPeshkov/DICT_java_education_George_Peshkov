@@ -3,19 +3,17 @@ package CoffeMachine;
 import java.util.Scanner;
 
 public class CoffeMachine {
-    enum CoffeState {
-        WAITING_FOR_COMMAND,
-        WAITING_FOR_CHOOSING_COFFEE_TYPE,
-        ADDING_WATER,
-        ADDING_MILK,
-        ADDING_BEANS,
-        ADDING_CUPS
-    }
     private int water = 400;
     private int milk = 540;
     private int beans = 120;
     private int cups = 9;
     private int money = 550;
+
+    public void promtAction() {
+        System.out.println("Write action (buy, fill, take, remaining, exit):");
+        coffeState = CoffeState.WAITING_FOR_COMMAND;
+    }
+
     private void printState() {
         System.out.println("The coffee machine has:");
         System.out.println(water + " ml of water");
@@ -24,11 +22,7 @@ public class CoffeMachine {
         System.out.println(cups + " of coffee cups");
         System.out.println(money + " of money");
     }
-    private void promtAction() {
-        System.out.println("Write action (buy, fill, take, remaining, exit):");
-        coffeState = CoffeState.WAITING_FOR_COMMAND;
-    }
-    private CoffeState coffeState = CoffeState.WAITING_FOR_COMMAND;
+
     public void process(String input) {
         switch (coffeState) {
             case WAITING_FOR_COMMAND:
@@ -51,6 +45,9 @@ public class CoffeMachine {
                 break;
         }
     }
+
+    private CoffeState coffeState = CoffeState.WAITING_FOR_COMMAND;
+
     private void handleCommand(String input) {
         switch (input) {
             case "buy":
@@ -74,6 +71,7 @@ public class CoffeMachine {
                 break;
         }
     }
+
     private void chooseCooffeeType(String input) {
         int waterNeed = 0;
         int milkNeed = 0;
@@ -112,33 +110,27 @@ public class CoffeMachine {
             promtAction();
         }
     }
+
     private void add_Water(String input) {
         water += Integer.parseInt(input);
         System.out.println("Write how many ml of water do you want to add:");
         coffeState = CoffeState.ADDING_MILK;
     }
+
     private void add_Milk(String input) {
         milk += Integer.parseInt(input);
         System.out.println("Write how many ml of milk do you want to add:");
         coffeState = CoffeState.ADDING_BEANS;
     }
+
     private void add_Beans(String input) {
         beans += Integer.parseInt(input);
         System.out.println("Write how many beans do you want to add:");
         coffeState = CoffeState.ADDING_CUPS;
     }
+
     private void add_Cups(String input) {
         cups += Integer.parseInt(input);
         promtAction();
-    }
-    public static void main(String[] args) {
-        CoffeMachine coffeMachine = new CoffeMachine();
-        Scanner scanner = new Scanner(System.in);
-        coffeMachine.promtAction();
-
-        while (scanner.hasNext()) {
-            String input = scanner.next();
-            coffeMachine.process(input);
-        }
     }
 }
