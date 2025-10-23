@@ -1,0 +1,46 @@
+import java.util.Scanner;
+
+public class ChatBot{
+    public static void main(String[] args) {
+        Scanner scanner=new Scanner(System.in);
+        String BotName = "Khai_Chat_Bot";
+        int BirthYear = 2025;
+        System.out.println("Hello! My name is " + BotName + "!");
+        System.out.println("I was born in " + BirthYear + "!");
+        System.out.println("Please, remind me your name.");
+        String YourName = scanner.nextLine();
+        System.out.println("What a great name you have, " + YourName + "!");
+        System.out.println("Let me guess your age.");
+        System.out.println("Enter remainders of dividing your age by 3, 5 and 7.");
+        int reminder3 = scanner.nextInt();
+        int reminder5 = scanner.nextInt();
+        int reminder7 = scanner.nextInt();
+        int age = (reminder3 * 70 + reminder5 * 21 + reminder7 * 15) % 105;
+        System.out.println("Your age is " + age + ". What a good time to start programming!");
+        System.out.println("Now I will prove to you that I can count to any number you want!");
+        int number_you_want = scanner.nextInt();
+        int number = -1;
+        while (number < number_you_want) {
+            System.out.println(number + 1 + "!");
+            number++;
+        }
+        System.out.println("Choose correct answer!");
+        System.out.println("Wrong answer" + "\n" + "Wrong answer" + "\n" + "Correct answer" + "\n" + "Wrong answer");
+        int right_answer_number = 3;
+        int user_answer = 0;
+        while (user_answer != right_answer_number) {
+            if (scanner.hasNext()) {
+                user_answer = scanner.nextInt();
+            } else {
+                scanner.next();
+                user_answer = 0;
+            }
+            if (user_answer != right_answer_number) {
+                System.out.println("Wrong");
+            }
+        }
+        System.out.println("Correct");
+        System.out.println("Goodbye, have a nice day!");
+        scanner.close();
+    }
+}
