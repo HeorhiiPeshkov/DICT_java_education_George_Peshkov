@@ -2,5 +2,7 @@ package MatrixProcessing;
 
 
 public enum MatrixOperation {
-    ADD, EXIT
+    ADD,
+    MULTIPLY_BY_A_CONSTANT,
+    EXIT,
 }
