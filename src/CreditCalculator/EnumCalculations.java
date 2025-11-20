@@ -1,0 +1,9 @@
+package CreditCalculator;
+
+public enum EnumCalculations {
+    MONTHLY_PAYMENT,
+    NUMBER_OF_PAYMENTS,
+    LOAN_PRINCIPAL,
+    NUMBER_OF_MONTHS_WITH_LOAN_INTEREST,
+    ANNUITY_MONTHLY_PAYMENT,
+}
