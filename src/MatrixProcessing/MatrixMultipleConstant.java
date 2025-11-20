@@ -3,8 +3,8 @@ package MatrixProcessing;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class MatrixMultiple {
-    public static void multipleMatrix(Scanner scanner) {
+public class MatrixMultipleConstant {
+    public static void multipleconstantMatrix(Scanner scanner) {
         System.out.println("Enter row");
         int n = scanner.nextInt();
         System.out.println("Enter col");
